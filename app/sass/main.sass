@@ -1,0 +1,229 @@
+@import "vars"
+@import "fonts"
+@import "libs"
+
+::placeholder
+	color: #666
+
+::selection
+	background-color: $accent
+	color: #fff
+
+html, body
+	height: 100%
+
+body
+	font-size: 16px
+	min-width: 320px
+	position: relative
+	line-height: 1.75
+	font-family: $default-font
+	overflow-x: hidden
+	margin: 0
+	color: #fff
+	input, textarea
+		border: #666 1px solid
+		outline: none
+		&:focus:required:invalid
+			border-color: red
+		&:required:valid
+			border-color: green
+	&.ishome
+		.site-header
+			min-height: 700px
+			height: 100vh
+			background-color: $dark
+			.top-line
+				padding-top: 40px
+				position: absolute
+				width: 100%
+				z-index: 1
+
+.h1, .h2, .h3, .h4, .h5, .h6 
+	line-height: 1.4
+	text-transform: uppercase
+
+.button
+	display: inline-block
+	border: none
+	color: #fff
+	text-decoration: none
+	background-color: $accent
+	padding: 16px 45px
+	font-size: 13px
+	text-transform: uppercase
+	font-weight: 600
+	letter-spacing: 2px
+	border-radius: 2px
+	text-align: center
+	position: relative
+	outline: none
+	transition: background-color .1s ease
+	cursor: pointer
+	&::after
+		transition: background-color .2s ease
+		position: absolute
+		content: ''
+		height: 4px
+		bottom: 0
+		width: 100%
+		background-color: darken($accent, 50%)
+		opacity: .18
+		border-bottom-left-radius: 2px
+		border-bottom-right-radius: 2px
+		left: 0
+	&:focus, &:hover
+		text-decoration: none
+		color: #fff
+	&:hover
+		background-color: lighten($accent, 5%)
+		&::after
+			opacity: .22
+	&:active
+		background-color: darken($accent, 5%)
+		&::after
+			opacity: .32
+
+.logo
+	img 
+		width: 125px
+		height: auto
+		margin-left: 45px
+
+.phone
+	position: absolute
+	right: 85px
+	top: 44px
+	font-family: firasans, sans-serif
+	font-size: 22px
+	white-space: nowrap
+	.fa
+		color: #555
+		font-size: 22px
+		margin-right: 3px
+
+section, header
+	position: relative
+	background-size: cover
+	background-position: center
+
+section 
+	background-color: #fff
+
+.img-responsive
+	display: block
+	max-width: 100%
+	height: auto
+	&.img-width
+		width: 100%
+
+.hamburger
+	position: absolute
+	right: 0
+	top: 34px
+	.hamburger-box
+		width: 34px
+
+.hamburger-inner, .hamburger-inner:after, .hamburger-inner:before, .hamburger.is-active .hamburger-inner:after, .hamburger.is-active .hamburger-inner:before
+	width: 34px
+	border-radius: 0
+	height: 2px
+	background-color: #fff
+
+.mm-navbar .mm-navbar__title img
+	width: 128px
+	height: auto
+	margin: 44px 0 25px
+
+.mm-navbar, .mm-listitem:after
+	border: none
+
+.mm-wrapper
+	overflow-y: scroll
+
+.mm-listview
+	> li 
+		> a
+			transition: .25s ease
+			padding-left: 14%
+			padding-top: 8px
+			&:hover
+				color: $accent
+				&::before
+					color: $accent
+			&::before
+				content: '\f3a5'
+				font-family: 'Font Awesome 5 Free'
+				margin-right: 8px
+				text-decoration: none
+				font-size: 12px
+				color: #fff
+				transition: .25s ease
+
+.mm-listitem.mm-listitem_selected, .mm-listitem_selected>.mm-listitem__text
+	background-color: transparent
+	color: $accent
+
+.text-center
+	text-align: center
+
+b, strong
+	font-weight: bold
+
+.header-flex
+	display: flex
+	position: relative
+	height: 100%
+	top: 0
+.flex-center
+	margin: auto
+.header-composition
+	text-align: center
+	position: relative
+	p
+		margin-top: 40px
+	.button
+		margin-top: 25px
+
+.welcome
+	p
+		font-size: 14px
+		text-transform: uppercase
+		display: flex
+		align-items: center
+		margin: 0
+		white-space: nowrap
+		margin-bottom: -10px
+		&::before, &::after
+			content: ''
+			display: inline-block
+			height: 1px
+			background-color: #fff
+			width: 100%
+			position: relative
+		span
+			margin: 0 10px
+	.h1
+		font-size: 67px
+		font-weight: 100
+		border-bottom: 1px solid #fff
+		white-space: nowrap
+		margin: 0
+		line-height: 1.6
+	strong
+		text-transform: uppercase
+		display: block
+		font-size: 17px
+		margin-top: 25px
+		.fa
+			margin-right: 10px
+			font-size: 12px
+			color: #555
+			&:last-child
+				margin-left: 10px
+				margin-right: inherit
+
+
+
+
+@import "media" // Always at the end
