@@ -5,15 +5,57 @@
 
 // ≥1200px
 +media-breakpoint-down(lg)
+    .welcome
+        .h1
+            font-size: 56px
+    .carousel-services-item
+        flex-direction: column
+
+    .s
+	    &-king, &-review, &-partners
+		    padding: 8% 0
 
 // ≥992px
 +media-breakpoint-down(md)
+    .welcome
+        .h1
+            font-size: 39px
 
 // ≥768px
 +media-breakpoint-down(sm)
+    .welcome
+        .h1
+            font-size: 28px
+            margin-top: 5px
+        p>span
+            font-size: 12px
+    .header-contacts
+        text-align: left
+    .button
+        padding: 12px 38px
 
 // ≥576px
 +media-breakpoint-down(xs)
+    .welcome
+        .h1
+            font-size: 24px
+            letter-spacing: 2px
+        p>span
+            font-size: 10px
+        strong
+            margin-top: 15px
+            font-size: 14px
+    .header-composition
+        p
+            margin-top: 15px
+
+@media only screen and (max-width : 480px)
+    .welcome 
+        .h1
+            font-size: 19px
+            letter-spacing: none
+        p>span
+                font-size: 9px
 
 
 /*==========  Mobile First  ==========*/
