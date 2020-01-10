@@ -3,7 +3,7 @@
 
 /*==========  Desktop First  ==========*/
 
-// ≥1200px
+// <1200px
 +media-breakpoint-down(lg)
     .welcome
         .h1
@@ -15,13 +15,21 @@
 	    &-king, &-review, &-partners
 		    padding: 8% 0
 
-// ≥992px
+    .s-call
+        background-size: cover
+
+// <992px
 +media-breakpoint-down(md)
     .welcome
         .h1
             font-size: 39px
+    .s-call
+        &::before
+           width: 100%
+        .callback
+            padding: 10% 0
 
-// ≥768px
+// <768px
 +media-breakpoint-down(sm)
     .welcome
         .h1
@@ -34,7 +42,15 @@
     .button
         padding: 12px 38px
 
-// ≥576px
+    .h2
+        margin: 0
+
+    .footer-contacts .footer-phone
+        font-size: 18px
+    .footer-column
+        margin: 30px 0
+
+// <576px
 +media-breakpoint-down(xs)
     .welcome
         .h1
@@ -49,6 +65,25 @@
         p
             margin-top: 15px
 
+    .quotes
+        display: none
+    
+    .partners
+        .owl-nav
+            > button
+                &.owl-prev
+                    left: 0
+                &.owl-next
+                    right: 0
+    .footer-phone
+        font-size: 20px
+    .footer-column
+        margin: 10px 0
+        .footer-social
+            margin-top: 0
+    .footer-menu
+        padding-left: 25px
+
 @media only screen and (max-width : 480px)
     .welcome 
         .h1
@@ -60,14 +95,15 @@
 
 /*==========  Mobile First  ==========*/
 
-// ≤576px
+// ≥576px
 +media-breakpoint-up(sm)
 
-// ≤768px
+// ≥768px
 +media-breakpoint-up(md)
 
-// ≤992px
+// ≥992px
 +media-breakpoint-up(lg)
 
-// ≤1200px
+// ≥1200px
 +media-breakpoint-up(xl)
+    
