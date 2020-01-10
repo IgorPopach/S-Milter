@@ -7,6 +7,10 @@ var gulp          = require('gulp'),
 		concat        = require('gulp-concat'),
 		uglify        = require('gulp-uglify'),
 		cleancss      = require('gulp-clean-css'),
+		del          = require('del'),
+		imagemin     = require('gulp-imagemin'),
+		pngquant     = require('imagemin-pngquant'), // Подключаем библиотеку для работы с png
+		cache        = require('gulp-cache'),
 		rename        = require('gulp-rename'),
 		autoprefixer  = require('gulp-autoprefixer'),
 		notify        = require("gulp-notify"),
@@ -34,7 +38,7 @@ function styles() {
 	.pipe(browsersync.reload( {stream: true} ))
 };
 
-function js() {
+function scripts() {
 	return gulp.src([
 		'app/libs/jquery/dist/jquery.min.js',
 		'app/libs/mmenu/dist/mmenu.js',
@@ -65,12 +69,47 @@ gulp.task('rsync', function() {
 	}))
 });
 
+gulp.task('prebuild', async function() {
+
+	var buildCss = gulp.src([ // Переносим библиотеки в продакшен
+		'app/css/main.min.css'
+		])
+	.pipe(gulp.dest('dist/css'))
+
+	var buildFonts = gulp.src('app/fonts/**/*') // Переносим шрифты в продакшен
+	.pipe(gulp.dest('dist/fonts'))
+
+	var buildJs = gulp.src('app/js/**/*') // Переносим скрипты в продакшен
+	.pipe(gulp.dest('dist/js'))
+
+	var buildHtml = gulp.src('app/*.html') // Переносим HTML в продакшен
+	.pipe(gulp.dest('dist'));
+
+});
+
+gulp.task('clean', async function() {
+	return del.sync('dist'); // Удаляем папку dist перед сборкой
+});
+
+gulp.task('img', function() {
+	return gulp.src('app/img/**/*') // Берем все изображения из app
+		.pipe(cache(imagemin({ // С кешированием
+		// .pipe(imagemin({ // Сжимаем изображения без кеширования
+			interlaced: true,
+			progressive: true,
+			svgoPlugins: [{removeViewBox: false}],
+			use: [pngquant()]
+		}))/**/)
+		.pipe(gulp.dest('dist/img')); // Выгружаем на продакшен
+});
+
 var watchers = function () {
 	gulp.watch('app/'+syntax+'/**/*.'+syntax+'', styles);
-	gulp.watch(['libs/**/*.js', 'app/js/common.js'], js);
+	gulp.watch(['libs/**/*.js', 'app/js/common.js'], scripts);
 	gulp.watch('app/*.html').on('change', browsersync.reload)
 }
 
 gulp.task('watch', watchers);
 
-gulp.task('default', gulp.parallel('watch', styles, js, browserSync));
+gulp.task('default', gulp.parallel('watch', styles, scripts, browserSync));
+gulp.task('build', gulp.parallel('prebuild', 'clean', 'img', styles, scripts));
