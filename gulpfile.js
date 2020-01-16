@@ -13,6 +13,7 @@ var gulp          = require('gulp'),
 		cache        = require('gulp-cache'),
 		rename        = require('gulp-rename'),
 		autoprefixer  = require('gulp-autoprefixer'),
+		ftp            = require('vinyl-ftp'),
 		notify        = require("gulp-notify"),
 		rsync         = require('gulp-rsync');
 
@@ -82,8 +83,10 @@ gulp.task('prebuild', async function() {
 	var buildJs = gulp.src('app/js/**/*') // Переносим скрипты в продакшен
 	.pipe(gulp.dest('dist/js'))
 
-	var buildHtml = gulp.src('app/*.html') // Переносим HTML в продакшен
-	.pipe(gulp.dest('dist'));
+	var buildFiles = gulp.src([
+		'app/*.html',
+		'app/.htaccess',
+		]).pipe(gulp.dest('dist'));
 
 });
 
@@ -101,6 +104,24 @@ gulp.task('img', function() {
 			use: [pngquant()]
 		}))/**/)
 		.pipe(gulp.dest('dist/img')); // Выгружаем на продакшен
+});
+
+gulp.task('deploy', function() {
+	var conn = ftp.create({
+		host: 'files.000webhost.com',
+		user: 'testsmitler',
+		password: '1XZQ8GWXKYr46(czqen!',
+		parallel: 10,
+		log: gutil.log
+	});
+
+	var globs = [
+		'dist/**',
+		'dist/.htaccess'
+	];
+
+	return gulp.src(globs, {buffer: false})
+		.pipe(conn.dest('/public_html'));
 });
 
 var watchers = function () {
